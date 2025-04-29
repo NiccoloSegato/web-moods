@@ -67,8 +67,6 @@ function getDuration(dateInput = Date.now()) {
     // Mappiamo il valore [0, 1) all'intervallo intero desiderato.
     // Moltiplichiamo per il numero di valori possibili (221) e aggiungiamo il minimo (20).
     const durationMinutes = Math.floor(randomValue * DURATION_RANGE_SIZE) + MIN_DURATION_MINUTES;
-  
-    console.log(`Durata calcolata: ${durationMinutes} minuti (hash: ${hash}, randomValue: ${randomValue})`);
     return durationMinutes;
 }
 

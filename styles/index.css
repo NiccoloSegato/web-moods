@@ -45,3 +45,13 @@ body {
     backdrop-filter: blur(10px);
     cursor: pointer;
 }
+
+@media (max-width: 700px) {
+    #mood {
+        font-size: 3em;
+    }
+    #parametri {
+        flex-direction: column;
+        align-items: center;
+    }
+}

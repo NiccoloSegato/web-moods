@@ -9,21 +9,43 @@
         <script src="scripts/planner.js"></script>
     </head>
     <body>
-        <h1>Pianificazione mood</h1>
-        <p>Questa pagina contiene i mood e le relative statistiche per i prossimi sette giorni</p>
-        <table id="planner-table">
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Inizio</th>
-                    <th>Fine</th>
-                    <th>Durata</th>
-                    <th>Mood</th>
-                </tr>
-            </thead>
-            <tbody id="planner-body">
-                <!-- Le righe della tabella verranno generate dinamicamente -->
-            </tbody>
+        <nav>
+            <img src="assets/images/logo.png" alt="Logo Weberus" id="logo">
+        </nav>
+        <main>
+            <h1>Pianificazione mood</h1>
+            <p>Questa pagina contiene i mood e le relative statistiche per i prossimi sette giorni</p>
+            <h3>Statistiche</h3>
+            <table id="stats-table">
+                <thead>
+                    <tr>
+                        <th>Durata media</th>
+                        <th>Nostalgia</th>
+                        <th>Calma</th>
+                        <th>Libertà</th>
+                        <th>Solitudine</th>
+                    </tr>
+                </thead>
+                <tbody id="stats-body">
+                    <!-- Le righe della tabella verranno generate dinamicamente -->
+                </tbody>
+            </table>
+            <h3>Pianificazione</h3>
+            <table id="planner-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Inizio</th>
+                        <th>Fine</th>
+                        <th>Durata</th>
+                        <th>Mood</th>
+                    </tr>
+                </thead>
+                <tbody id="planner-body">
+                    <!-- Le righe della tabella verranno generate dinamicamente -->
+                </tbody>
+            </table>
+        </main>
         <script>runPlanner()</script>
     </body>
 </html>

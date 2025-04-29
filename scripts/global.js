@@ -68,18 +68,21 @@ function getDuration(dateInput = Date.now()) {
     // Moltiplichiamo per il numero di valori possibili (221) e aggiungiamo il minimo (20).
     const durationMinutes = Math.floor(randomValue * DURATION_RANGE_SIZE) + MIN_DURATION_MINUTES;
   
+    console.log(`Durata calcolata: ${durationMinutes} minuti (hash: ${hash}, randomValue: ${randomValue})`);
     return durationMinutes;
 }
 
 function getCurrentTimesliceDetails(targetTimeMs = Date.now()) {
 
-    if (targetTimeMs < EPOCH_START_MS) {
+    // Per il calcolo parto da una data più vicina del suo compleanno
+    const REF_TIME = new Date('2025-04-25T00:00:00Z').getTime();
+    if (targetTimeMs < REF_TIME) {
         return null;
     }
   
-    let currentPeriodStartTimeMs = EPOCH_START_MS;
+    let currentPeriodStartTimeMs = REF_TIME;
     let loopSafetyCounter = 0; // Per prevenire cicli infiniti imprevisti
-    const MAX_LOOPS = 2000000; // Limite ragionevole, dipende da quanto è vecchia l'epoca
+    const MAX_LOOPS = 1000000; // Limite ragionevole, dipende da quanto è vecchia l'epoca
   
     while (currentPeriodStartTimeMs <= targetTimeMs && loopSafetyCounter < MAX_LOOPS) {
         loopSafetyCounter++;
@@ -88,8 +91,8 @@ function getCurrentTimesliceDetails(targetTimeMs = Date.now()) {
         const indices = {indexA: getEarthValue(currentPeriodStartTimeMs), indexB: getTideValue(currentPeriodStartTimeMs), indexC: getMoonValue(currentPeriodStartTimeMs)};
     
         // 2. Calcola Mood e Durata per questo periodo (usando gli indici di inizio)
-        const periodMood = generateMood(indices);
-        const periodDurationMinutes = getDuration(indices);
+        const periodMood = generateMood(currentPeriodStartTimeMs);
+        const periodDurationMinutes = getDuration(currentPeriodStartTimeMs);
         const periodDurationMs = periodDurationMinutes * 60 * 1000;
     
         // Controllo di sicurezza per durata non valida

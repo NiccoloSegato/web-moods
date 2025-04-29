@@ -24,32 +24,31 @@ function generateNextSevenDaysMoods() {
         const day = dateInput.getDate();
         const month = dateInput.getMonth() + 1; // I mesi partono da 0
         const year = dateInput.getFullYear();
-        const hours = dateInput.getHours();
-        const minutes = dateInput.getMinutes();
         const formattedDate = `${day}/${month}/${year}`;
-        const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+        const startTime = new Date(currentTimesliceDetails.startTimeMs);
+        const startFormattedTime = `${startTime.getHours()}:${startTime.getMinutes().toString().padStart(2, '0')}`;
+        const endTime = new Date(currentTimesliceDetails.endTimeMs);
+        const endFormattedTime = `${endTime.getHours()}:${endTime.getMinutes().toString().padStart(2, '0')}`;
+        const duration = currentTimesliceDetails.durationMinutes;
         
         const moodRow = document.createElement('tr');
         const dateCell = document.createElement('td');
-        const timeCell = document.createElement('td');
+        const startTimeCell = document.createElement('td');
+        const endTimeCell = document.createElement('td');
+        const durationCell = document.createElement('td');
         const moodCell = document.createElement('td');
-        const moonCell = document.createElement('td');
-        const earthCell = document.createElement('td');
-        const tideCell = document.createElement('td');
 
         dateCell.innerHTML = formattedDate;
-        timeCell.innerHTML = formattedTime;
+        startTimeCell.innerHTML = startFormattedTime;
+        endTimeCell.innerHTML = endFormattedTime;
+        durationCell.innerHTML = `${duration} min`;
         moodCell.innerHTML = moods[moodValue - 1];
-        moonCell.innerHTML = getMoonValue(dateInput.getTime());
-        earthCell.innerHTML = getEarthValue(dateInput.getTime());
-        tideCell.innerHTML = getTideValue(dateInput.getTime());
 
         moodRow.appendChild(dateCell);
-        moodRow.appendChild(timeCell);
+        moodRow.appendChild(startTimeCell);
+        moodRow.appendChild(endTimeCell);
+        moodRow.appendChild(durationCell);
         moodRow.appendChild(moodCell);
-        moodRow.appendChild(moonCell);
-        moodRow.appendChild(earthCell);
-        moodRow.appendChild(tideCell);
         
         container.appendChild(moodRow);
 

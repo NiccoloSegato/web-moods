@@ -2,21 +2,22 @@
  * Funzione principale
  */
 function runPlanner() {
-    generateNextSevenDaysMoods();
+    generateNextPeriodDaysMoods();
     countStats();
 }
 
 /**
  * Funzione per generare i mood per i prossimi 7 giorni
  */
-function generateNextSevenDaysMoods() {
-    let currentTimeMs = Date.now();
+function generateNextPeriodDaysMoods(days = 7) {
+    // Svuoto la tabella
     const container = document.getElementById('planner-body');
+    container.innerHTML = ''; // Pulisci la tabella esistente
+    let currentTimeMs = Date.now();
     const limitLoop = 1000; // Limite di sicurezza per evitare loop infiniti
     let loopCounter = 0;
 
-    // Calcolo il tempo tra una settimana
-    const endPeriod = new Date(currentTimeMs + 7 * 24 * 60 * 60 * 1000);
+    const endPeriod = new Date(currentTimeMs + days * 24 * 60 * 60 * 1000);
 
     while(currentTimeMs < endPeriod.getTime() && loopCounter < limitLoop) {
         const dateInput = new Date(currentTimeMs);
@@ -94,4 +95,18 @@ function countStats() {
     averageRow.appendChild(mood2Cell);
     averageRow.appendChild(mood3Cell);
     averageRow.appendChild(mood4Cell);
+}
+
+function removeButtonSelectedId() {
+    const buttons = document.getElementsByClassName('period-button');
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('selected');
+    }
+}
+
+function getPeriodStats(days) {
+    removeButtonSelectedId();
+    generateNextPeriodDaysMoods(days);
+    countStats();
+    document.getElementById(`btn-${days}`).classList.add('selected');
 }

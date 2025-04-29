@@ -15,6 +15,12 @@
         <main>
             <h1>Pianificazione mood</h1>
             <p>Questa pagina contiene i mood e le relative statistiche per i prossimi sette giorni</p>
+            <div id="period-buttons">
+                <button id="btn-1" class="period-button" onclick="getPeriodStats(1)">Giorno</button>
+                <button id="btn-7" class="period-button selected" onclick="getPeriodStats(7)">Settimana</button>
+                <button id="btn-30" class="period-button" onclick="getPeriodStats(30)">Mese</button>
+                <button id="btn-365" class="period-button" onclick="getPeriodStats(365)">Anno</button>
+            </div>
             <h3>Statistiche</h3>
             <table id="stats-table">
                 <thead>

@@ -38,3 +38,23 @@ table td {
 
     padding: 10px;
 }
+#period-buttons {
+    display: flex;
+    justify-content: left;
+    margin: 20px 0;
+}
+.period-button {
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: medium;
+}
+.selected {
+    background-color: #007bff !important;
+    color: white !important;
+}

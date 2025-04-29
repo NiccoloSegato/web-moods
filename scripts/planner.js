@@ -34,9 +34,9 @@ function generateNextSevenDaysMoods() {
         dateCell.innerHTML = formattedDate;
         timeCell.innerHTML = formattedTime;
         moodCell.innerHTML = moods[moodValue - 1];
-        moonCell.innerHTML = getMoonValue();
-        earthCell.innerHTML = getEarthValue();
-        tideCell.innerHTML = getTideValue();
+        moonCell.innerHTML = getMoonValue(dateInput.getTime());
+        earthCell.innerHTML = getEarthValue(dateInput.getTime());
+        tideCell.innerHTML = getTideValue(dateInput.getTime());
 
         moodRow.appendChild(dateCell);
         moodRow.appendChild(timeCell);

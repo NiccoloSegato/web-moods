@@ -28,8 +28,8 @@ function generateMood(dateInput = Date.now()) {
 /**
  * Funzione per ottenere il valore della luna
  */
-function getMoonValue() {
-    const currentTimeMs = Date.now();
+function getMoonValue(dateInput = Date.now()) {
+    const currentTimeMs = dateInput;
     const elapsedTimeMs = currentTimeMs - EPOCH_START_MS;
     return Math.floor(elapsedTimeMs / INTERVAL_MOON);
 }
@@ -37,8 +37,8 @@ function getMoonValue() {
 /**
  * Funzione per ottenere il valore delle maree
  */
-function getTideValue() {
-    const currentTimeMs = Date.now();
+function getTideValue(dateInput = Date.now()) {
+    const currentTimeMs = dateInput;
     const elapsedTimeMs = currentTimeMs - EPOCH_START_MS;
     return Math.floor(elapsedTimeMs / INTERVAL_TIDE);
 }
@@ -46,8 +46,8 @@ function getTideValue() {
 /**
  * Funzione per ottenere il valore della terra
  */
-function getEarthValue() {
-    const currentTimeMs = Date.now();
+function getEarthValue(dateInput = Date.now()) {
+    const currentTimeMs = dateInput;
     const elapsedTimeMs = currentTimeMs - EPOCH_START_MS;
     return Math.floor(elapsedTimeMs / INTERVAL_EARTH);
 }

@@ -11,7 +11,7 @@ function run() {
  * Funzione per visualizzare il mood corrente
  */
 function renderMood() {
-    let moodValue = generateMood();
+    let moodValue = getCurrentTimesliceDetails().activeMood;
 
     document.getElementById('moonphase').innerHTML = getMoonValue();
     document.getElementById('tidephase').innerHTML = getTideValue();

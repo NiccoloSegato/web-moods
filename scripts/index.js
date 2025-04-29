@@ -4,6 +4,7 @@
 function run() {
     renderMood();
     getNextChangeTime();
+    getCurrentTimesliceDetails();
 }
 
 /**
@@ -25,9 +26,8 @@ function renderMood() {
  * Calcola quanti minuti ad un multiplo di 20 minuti e lo inserisce come valore di nextchangelabel
  */
 function getNextChangeTime() {
-    const currentTime = new Date();
-    const minutes = currentTime.getMinutes();
-    const nextChange = Math.ceil(minutes / 20) * 20;
-    const nextChangeTime = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), currentTime.getHours(), nextChange);
-    document.getElementById('nextchangelabel').innerHTML = `${nextChangeTime.getHours()}:${nextChangeTime.getMinutes().toString().padStart(2, '0')}`;
+    const timesliceInfo = getCurrentTimesliceDetails();
+    const startTime = new Date(timesliceInfo.startTimeMs);
+    const endTime = new Date(timesliceInfo.endTimeMs);
+    document.getElementById('nextchangelabel').innerHTML = `Inizio: <strong>${startTime.getHours()}:${startTime.getMinutes().toString().padStart(2, '0')}</strong> - Fine: <strong>${endTime.getHours()}:${endTime.getMinutes().toString().padStart(2, '0')}</strong>`;
 }

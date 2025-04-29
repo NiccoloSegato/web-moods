@@ -1,4 +1,10 @@
 let moods = ['Nostalgia', 'Calma', 'Libertà', 'Solitudine'];
+let gradients = [
+    'linear-gradient(to right, #ffd89b, #19547b)',
+    'linear-gradient(to right, #C9D6FF, #E2E2E2)',
+    'linear-gradient(to right, #ff7e5f, #feb47b)',
+    'linear-gradient(to right, #616161, #9bc5c3)'
+]
 
 const INTERVAL_MOON = 7 * 24 * 60 * 60 * 1000; // 7 giorni
 const INTERVAL_TIDE = 6 * 60 * 60 * 1000; // 6 ore

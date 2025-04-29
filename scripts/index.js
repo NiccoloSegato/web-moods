@@ -17,5 +17,5 @@ function renderMood() {
 
     document.getElementById('mood').innerHTML = moods[moodValue - 1];
 
-    document.body.style.backgroundImage = "url('assets/images/mood-" + (moodValue) + ".webp')";
+    document.body.style.background = gradients[moodValue - 1];
 }

@@ -10,7 +10,7 @@ function run() {
  * Funzione per visualizzare il mood corrente
  */
 function renderMood() {
-    let moodValue = calculateDPseudoRandomCustom();
+    let moodValue = generateMood();
 
     document.getElementById('moonphase').innerHTML = getMoonValue();
     document.getElementById('tidephase').innerHTML = getTideValue();

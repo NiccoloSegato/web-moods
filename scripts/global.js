@@ -12,26 +12,7 @@ const INTERVAL_EARTH = 20 * 60 * 1000; // 20 minuti
 
 const EPOCH_START_MS = new Date('1992-12-04T00:00:00Z').getTime();
 
-/**
- * Funzione per generare il mood della data fornita
- * @param {*} dateInput Data in millisecondi
- * @returns {number} Valore del mood
- */
 function generateMood(dateInput = Date.now()) {
-    const currentTimeMs = dateInput;
-
-    const elapsedTimeMs = currentTimeMs - EPOCH_START_MS;
-
-    const moonValue = Math.floor(elapsedTimeMs / INTERVAL_MOON);
-    const tideValue = Math.floor(elapsedTimeMs / INTERVAL_TIDE);
-    const earthValue = Math.floor(elapsedTimeMs / INTERVAL_EARTH);
-
-    const combinedValue = (moonValue * 31 + tideValue * 17 + earthValue);
-
-    return ((combinedValue % 4 + 4) % 4) + 1;
-}
-
-function calculateDPseudoRandomCustom(dateInput = Date.now()) {
 
     // Combiniamo gli indici in un singolo valore intero a 32 bit.
     // Usiamo operazioni diverse per iniziare a mescolare. L'ordine conta.

@@ -43,6 +43,8 @@ function generateNextSevenDaysMoods() {
         endTimeCell.innerHTML = endFormattedTime;
         durationCell.innerHTML = `${duration} min`;
         moodCell.innerHTML = moods[moodValue - 1];
+        moodCell.style.background = gradients[moodValue - 1];
+        moodCell.style.color = 'white'; // Colore del testo per il mood
 
         moodRow.appendChild(dateCell);
         moodRow.appendChild(startTimeCell);

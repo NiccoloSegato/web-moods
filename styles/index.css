@@ -18,6 +18,7 @@ body {
     margin-top: 45vh;
     font-size: 5em;
     font-family: "Great Warrior", sans-serif;
+    margin-bottom: 0;
 }
 #parametri {
     position: absolute;

@@ -14,7 +14,7 @@ function generateNextSevenDaysMoods() {
 
     for (let i = 0; i < 504; i++) {
         const dateInput = new Date(currentTimeMs + i * INTERVAL_EARTH);
-        const moodValue = generateMood(dateInput.getTime());
+        const moodValue = calculateDPseudoRandomCustom(dateInput.getTime());
         const day = dateInput.getDate();
         const month = dateInput.getMonth() + 1; // I mesi partono da 0
         const year = dateInput.getFullYear();

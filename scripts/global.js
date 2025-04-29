@@ -31,6 +31,35 @@ function generateMood(dateInput = Date.now()) {
     return ((combinedValue % 4 + 4) % 4) + 1;
 }
 
+function calculateDPseudoRandomCustom(dateInput = Date.now()) {
+
+    // Combiniamo gli indici in un singolo valore intero a 32 bit.
+    // Usiamo operazioni diverse per iniziare a mescolare. L'ordine conta.
+    let hash = getEarthValue(dateInput) | 0; // Inizia con l'indice che cambia più spesso. '| 0' forza a intero 32bit.
+    hash = Math.imul(hash ^ getTideValue(dateInput), 2654435761); // Moltiplica per una costante (golden ratio prime) dopo XOR con indexB
+    hash = Math.imul(hash ^ getMoonValue(dateInput), 2654435761); // Ripeti per indexA
+  
+    // Applichiamo ulteriori passaggi di mescolamento per aumentare la casualità apparente.
+    // Questa sequenza è un esempio; altre combinazioni di XOR, shift e moltiplicazioni possono funzionare.
+    hash = hash ^ (hash >>> 16); // XOR con se stesso shiftato a destra
+    hash = Math.imul(hash, 2246822507); // Moltiplica per un primo grande
+    hash = hash ^ (hash >>> 13); // Altro XOR shift
+    hash = Math.imul(hash, 3266489909); // Altro primo grande
+    hash = hash ^ (hash >>> 16); // XOR shift finale
+  
+    // A questo punto, 'hash' è un intero a 32 bit pseudo-casuale basato sugli indici iniziali.
+  
+    // Convertiamo l'hash intero (trattato come unsigned) in un numero decimale [0, 1).
+    // `>>> 0` converte l'hash (potenzialmente negativo in JS) in un intero unsigned a 32 bit.
+    // Dividiamo poi per 2^32 (4294967296).
+    const randomValue = (hash >>> 0) / 4294967296;
+  
+    // Mappiamo il valore [0, 1) all'intervallo intero desiderato [1, 4].
+    const resultD = Math.floor(randomValue * 4) + 1;
+  
+    return resultD;
+}
+
 /**
  * Funzione per ottenere il valore della luna
  */

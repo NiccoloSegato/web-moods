@@ -2,8 +2,14 @@
  * Funzione principale
  */
 function runPlanner() {
+    showIntervals();
     generateNextPeriodDaysMoods();
     countStats();
+}
+
+function showIntervals() {
+    document.getElementById('min-interval').innerHTML = `${MIN_DURATION_MINUTES} min`;
+    document.getElementById('max-interval').innerHTML = `${MAX_DURATION_MINUTES} min`;
 }
 
 /**

@@ -18,13 +18,11 @@ const EPOCH_START_MS = new Date('1992-12-04T00:00:00Z').getTime();
 
 function generateMood(dateInput = Date.now()) {
     // Combiniamo gli indici in un singolo valore intero a 32 bit.
-    // Usiamo operazioni diverse per iniziare a mescolare. L'ordine conta.
     let hash = getEarthValue(dateInput) | 0; // Inizia con l'indice che cambia più spesso. '| 0' forza a intero 32bit.
-    hash = Math.imul(hash ^ getTideValue(dateInput), 2654435761); // Moltiplica per una costante (golden ratio prime) dopo XOR con indexB
-    hash = Math.imul(hash ^ getMoonValue(dateInput), 2654435761); // Ripeti per indexA
+    hash = Math.imul(hash ^ getTideValue(dateInput), 2654435761); // Moltiplica per una costante dopo XOR con la marea
+    hash = Math.imul(hash ^ getMoonValue(dateInput), 2654435761); // Ripeti per la luna
   
     // Applichiamo ulteriori passaggi di mescolamento per aumentare la casualità apparente.
-    // Questa sequenza è un esempio; altre combinazioni di XOR, shift e moltiplicazioni possono funzionare.
     hash = hash ^ (hash >>> 16); // XOR con se stesso shiftato a destra
     hash = Math.imul(hash, 2246822507); // Moltiplica per un primo grande
     hash = hash ^ (hash >>> 13); // Altro XOR shift
@@ -45,25 +43,20 @@ function generateMood(dateInput = Date.now()) {
 }
 
 function getDuration(dateInput = Date.now()) {
-    // --- Fase 1: Combinazione Iniziale con "Salt" ---
-    // Usiamo una costante diversa (salt) all'inizio per differenziare
-    // l'output da quello della funzione D, anche con gli stessi indici.
+    // Usiamo una costante diversa (salt) all'inizio per differenziare l'output da quello della funzione di generazione dei mood, anche con gli stessi indici.
     const DURATION_SALT = 987654321; // Un numero arbitrario diverso da 0
     let hash = (getEarthValue(dateInput) ^ DURATION_SALT) | 0; // Inizia con l'indice che cambia più spesso. '| 0' forza a intero 32bit.
-    hash = Math.imul(hash ^ getTideValue(dateInput), 2654435761); // Moltiplica per una costante (golden ratio prime) dopo XOR con indexB
-    hash = Math.imul(hash ^ getMoonValue(dateInput), 2654435761); // Ripeti per indexA
+    hash = Math.imul(hash ^ getTideValue(dateInput), 2654435761); // Moltiplica per una costante dopo XOR con la marea
+    hash = Math.imul(hash ^ getMoonValue(dateInput), 2654435761); // Ripeti per le fasi lunari
   
-    // --- Fase 2: Hashing/Mixing Aggiuntivo (Identico a D per consistenza logica) ---
     hash = hash ^ (hash >>> 16);
     hash = Math.imul(hash, 2246822507);
     hash = hash ^ (hash >>> 13);
     hash = Math.imul(hash, 3266489909);
     hash = hash ^ (hash >>> 16);
   
-    // --- Fase 3: Normalizzazione (Identica a D) ---
     const randomValue = (hash >>> 0) / 4294967296; // Valore [0, 1)
   
-    // --- Fase 4: Mappatura alla Durata [20, 240] minuti ---
     // Mappiamo il valore [0, 1) all'intervallo intero desiderato.
     // Moltiplichiamo per il numero di valori possibili (221) e aggiungiamo il minimo (20).
     const durationMinutes = Math.floor(randomValue * DURATION_RANGE_SIZE) + MIN_DURATION_MINUTES;

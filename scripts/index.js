@@ -13,9 +13,9 @@ function DDC_run() {
 function DDC_renderMood() {
     let DDC_moodValue = DDC_getCurrentTimesliceDetails().DDC_activeMood;
 
-    document.getElementById('moonphase').innerHTML = DDC_getMoonValue();
-    document.getElementById('tidephase').innerHTML = DDC_getTideValue();
-    document.getElementById('earth').innerHTML = DDC_getEarthValue();
+    document.getElementById('moonphase').innerHTML = DDC_getLiteralMoonValue();
+    document.getElementById('tidephase').innerHTML = DDC_getLiteralTideValue();
+    document.getElementById('earth').innerHTML = DDC_getLiteralEarthValue() + "°";
 
     document.getElementById('mood').innerHTML = DDC_moods[DDC_moodValue - 1];
 

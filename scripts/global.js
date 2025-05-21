@@ -135,6 +135,52 @@ function DDC_getMoonValue(DDC_dateInput = Date.now()) {
 }
 
 /**
+ * Ottengo il valore letterale attuale della fase lunare basandosi sul giorno
+ * @param {*} DDC_dateInput 
+ * @returns 
+ */
+function DDC_getLiteralMoonValue(DDC_dateInput = Date.now()) {
+    // Ottengo i componenti dell'orario basandomi sulla zona 'Europe/Rome'
+    const DDC_options = {
+        day: 'numeric',      // 'numeric' per ottenere il valore numerico (es. 9, 15)
+        timeZone: 'Europe/Rome'
+    };
+
+    // Uso formatToParts per ottenere i singoli componenti (ora, minuti) in modo affidabile
+    const DDC_parts = new Intl.DateTimeFormat('it-IT', DDC_options).formatToParts(DDC_dateInput);
+
+    let DDC_dayOfMonth = 0;
+    DDC_parts.forEach(DDC_part => {
+        if (DDC_part.type === 'day') {
+            DDC_dayOfMonth = parseInt(DDC_part.value, 10); // Converte la stringa dell'ora in numero intero
+        }
+    });
+
+    if(DDC_dayOfMonth < 4) {
+        return "Luna nuova";
+    }
+    else if(DDC_dayOfMonth < 8) {
+        return "Luna crescente";
+    }
+    else if (DDC_dayOfMonth < 12) {
+        return "Primo quarto";
+    }
+    else if(DDC_dayOfMonth < 16) {
+        return "Gibbosa crescente";
+    }
+    else if(DDC_dayOfMonth < 20) {
+        return "Luna piena";
+    }
+    else if(DDC_dayOfMonth < 24) {
+        return "Gibbosa calante";
+    }
+    else if(DDC_dayOfMonth < 28) {
+        return "Ultimo quarto";
+    }
+    else return "Luna calante";
+}
+
+/**
  * Funzione per ottenere il valore delle maree
  */
 function DDC_getTideValue(DDC_dateInput = Date.now()) {
@@ -144,10 +190,74 @@ function DDC_getTideValue(DDC_dateInput = Date.now()) {
 }
 
 /**
+ * Ottengo il valore letterale attuale della marea basandosi sull'ora
+ * @param {*} DDC_dateInput 
+ * @returns 
+ */
+function DDC_getLiteralTideValue(DDC_dateInput = Date.now()) {
+    // Ottengo i componenti dell'orario basandomi sulla zona 'Europe/Rome'
+    const DDC_options = {
+        hour: 'numeric',      // 'numeric' per ottenere il valore numerico (es. 9, 15)
+        timeZone: 'Europe/Rome'
+    };
+
+    // Uso formatToParts per ottenere i singoli componenti (ora, minuti) in modo affidabile
+    const DDC_parts = new Intl.DateTimeFormat('it-IT', DDC_options).formatToParts(DDC_dateInput);
+
+    let DDC_hour = 0;
+    // Calcolo l'ora attuale
+    DDC_parts.forEach(DDC_part => {
+        if (DDC_part.type === 'hour') {
+            DDC_hour = parseInt(DDC_part.value, 10); // Converte la stringa dell'ora in numero intero
+        }
+    });
+
+    // Se è notte o pomeriggio ho alta marea
+    if(DDC_hour < 6 || (DDC_hour >= 12 && DDC_hour < 18)) {
+        return "Alta marea";
+    }
+    return "Bassa marea";
+}
+
+/**
  * Funzione per ottenere il valore della terra
  */
 function DDC_getEarthValue(DDC_dateInput = Date.now()) {
     const DDC_currentTimeMs = DDC_dateInput;
     const DDC_elapsedTimeMs = DDC_currentTimeMs - DDC_EPOCH_START_MS;
     return Math.floor(DDC_elapsedTimeMs / DDC_INTERVAL_EARTH);
+}
+
+/**
+ * Funzione per ottenere il valore effettivo in parole della rotazione terrestre basandosi sull'orario attuale
+ * @param {*} DDC_dateInput 
+ * @returns 
+ */
+function DDC_getLiteralEarthValue(DDC_dateInput = Date.now()) {
+    // Ottengo i componenti dell'orario basandomi sulla zona 'Europe/Rome'
+    const DDC_options = {
+        hour: 'numeric',      // 'numeric' per ottenere il valore numerico (es. 9, 15)
+        minute: 'numeric',    // 'numeric' per ottenere il valore numerico (es. 5, 30)
+        timeZone: 'Europe/Rome'
+    };
+
+    // Uso formatToParts per ottenere i singoli componenti (ora, minuti) in modo affidabile
+    const DDC_parts = new Intl.DateTimeFormat('it-IT', DDC_options).formatToParts(DDC_dateInput);
+
+    let DDC_hour = 0;
+    let DDC_minute = 0;
+
+    // Itero sui componenti per estrarre l'ora e i minuti
+    DDC_parts.forEach(DDC_part => {
+        if (DDC_part.type === 'hour') {
+            DDC_hour = parseInt(DDC_part.value, 10); // Converte la stringa in numero intero
+        } else if (DDC_part.type === 'minute') {
+            DDC_minute = parseInt(DDC_part.value, 10); // Converte la stringa in numero intero
+        }
+    });
+
+    // Calcolo i minuti totali trascorsi dall'inizio del giorno
+    const DDC_totalMinutesToday = (DDC_hour * 60) + DDC_minute;
+    // Calcolo il numero di rotazioni di 5 gradi dividendo per 20 (tempo in minuti per ruotare di 5 gradi)
+    return Math.floor(DDC_totalMinutesToday / 20) * 5;
 }

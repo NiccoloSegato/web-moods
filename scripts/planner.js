@@ -1,121 +1,121 @@
 /**
  * Funzione principale
  */
-function runPlanner() {
-    showIntervals();
-    generateNextPeriodDaysMoods();
-    countStats();
+function DDC_runPlanner() {
+    DDC_showIntervals();
+    DDC_generateNextPeriodDaysMoods();
+    DDC_countStats();
 }
 
-function showIntervals() {
-    document.getElementById('min-interval').innerHTML = `${MIN_DURATION_MINUTES} min`;
-    document.getElementById('max-interval').innerHTML = `${MAX_DURATION_MINUTES} min`;
+function DDC_showIntervals() {
+    document.getElementById('min-interval').innerHTML = `${DDC_MIN_DURATION_MINUTES} min`;
+    document.getElementById('max-interval').innerHTML = `${DDC_MAX_DURATION_MINUTES} min`;
 }
 
 /**
  * Funzione per generare i mood per i prossimi 7 giorni
  */
-function generateNextPeriodDaysMoods(days = 7) {
+function DDC_generateNextPeriodDaysMoods(DDC_days = 7) {
     // Svuoto la tabella
-    const container = document.getElementById('planner-body');
-    container.innerHTML = ''; // Pulisci la tabella esistente
-    let currentTimeMs = Date.now();
-    const limitLoop = 1000; // Limite di sicurezza per evitare loop infiniti
-    let loopCounter = 0;
+    const DDC_container = document.getElementById('planner-body');
+    DDC_container.innerHTML = ''; // Pulisci la tabella esistente
+    let DDC_currentTimeMs = Date.now();
+    const DDC_limitLoop = 1000; // Limite di sicurezza per evitare loop infiniti
+    let DDC_loopCounter = 0;
 
-    const endPeriod = new Date(currentTimeMs + days * 24 * 60 * 60 * 1000);
+    const DDC_endPeriod = new Date(DDC_currentTimeMs + DDC_days * 24 * 60 * 60 * 1000);
 
-    while(currentTimeMs < endPeriod.getTime() && loopCounter < limitLoop) {
-        const dateInput = new Date(currentTimeMs);
-        const currentTimesliceDetails = getCurrentTimesliceDetails(dateInput.getTime());
-        const moodValue = currentTimesliceDetails.activeMood;
-        const day = dateInput.getDate();
-        const month = dateInput.getMonth() + 1; // I mesi partono da 0
-        const year = dateInput.getFullYear();
-        const formattedDate = `${day}/${month}/${year}`;
-        const startTime = new Date(currentTimesliceDetails.startTimeMs);
-        const startFormattedTime = `${startTime.getHours()}:${startTime.getMinutes().toString().padStart(2, '0')}`;
-        const endTime = new Date(currentTimesliceDetails.endTimeMs);
-        const endFormattedTime = `${endTime.getHours()}:${endTime.getMinutes().toString().padStart(2, '0')}`;
-        const duration = currentTimesliceDetails.durationMinutes;
+    while(DDC_currentTimeMs < DDC_endPeriod.getTime() && DDC_loopCounter < DDC_limitLoop) {
+        const DDC_dateInput = new Date(DDC_currentTimeMs);
+        const DDC_currentTimesliceDetails = DDC_getCurrentTimesliceDetails(DDC_dateInput.getTime());
+        const DDC_moodValue = DDC_currentTimesliceDetails.DDC_activeMood;
+        const DDC_day = DDC_dateInput.getDate();
+        const DDC_month = DDC_dateInput.getMonth() + 1; // I mesi partono da 0
+        const DDC_year = DDC_dateInput.getFullYear();
+        const DDC_formattedDate = `${DDC_day}/${DDC_month}/${DDC_year}`;
+        const DDC_startTime = new Date(DDC_currentTimesliceDetails.DDC_startTimeMs);
+        const DDC_startFormattedTime = `${DDC_startTime.getHours()}:${DDC_startTime.getMinutes().toString().padStart(2, '0')}`;
+        const DDC_endTime = new Date(DDC_currentTimesliceDetails.DDC_endTimeMs);
+        const DDC_endFormattedTime = `${DDC_endTime.getHours()}:${DDC_endTime.getMinutes().toString().padStart(2, '0')}`;
+        const DDC_duration = DDC_currentTimesliceDetails.DDC_durationMinutes;
         
-        const moodRow = document.createElement('tr');
-        const dateCell = document.createElement('td');
-        const startTimeCell = document.createElement('td');
-        const endTimeCell = document.createElement('td');
-        const durationCell = document.createElement('td');
-        const moodCell = document.createElement('td');
+        const DDC_moodRow = document.createElement('tr');
+        const DDC_dateCell = document.createElement('td');
+        const DDC_startTimeCell = document.createElement('td');
+        const DDC_endTimeCell = document.createElement('td');
+        const DDC_durationCell = document.createElement('td');
+        const DDC_moodCell = document.createElement('td');
 
-        dateCell.innerHTML = formattedDate;
-        startTimeCell.innerHTML = startFormattedTime;
-        endTimeCell.innerHTML = endFormattedTime;
-        durationCell.innerHTML = `${duration} min`;
-        moodCell.innerHTML = moods[moodValue - 1];
-        moodCell.style.background = gradients[moodValue - 1];
-        moodCell.style.color = 'white'; // Colore del testo per il mood
+        DDC_dateCell.innerHTML = DDC_formattedDate;
+        DDC_startTimeCell.innerHTML = DDC_startFormattedTime;
+        DDC_endTimeCell.innerHTML = DDC_endFormattedTime;
+        DDC_durationCell.innerHTML = `${DDC_duration} min`;
+        DDC_moodCell.innerHTML = DDC_moods[DDC_moodValue - 1];
+        DDC_moodCell.style.background = DDC_gradients[DDC_moodValue - 1];
+        DDC_moodCell.style.color = 'white'; // Colore del testo per il mood
 
-        moodRow.appendChild(dateCell);
-        moodRow.appendChild(startTimeCell);
-        moodRow.appendChild(endTimeCell);
-        moodRow.appendChild(durationCell);
-        moodRow.appendChild(moodCell);
+        DDC_moodRow.appendChild(DDC_dateCell);
+        DDC_moodRow.appendChild(DDC_startTimeCell);
+        DDC_moodRow.appendChild(DDC_endTimeCell);
+        DDC_moodRow.appendChild(DDC_durationCell);
+        DDC_moodRow.appendChild(DDC_moodCell);
         
-        container.appendChild(moodRow);
+        DDC_container.appendChild(DDC_moodRow);
 
-        currentTimeMs += currentTimesliceDetails.durationMs; // Avanza al prossimo periodo
-        loopCounter++;
+        DDC_currentTimeMs += DDC_currentTimesliceDetails.DDC_durationMs; // Avanza al prossimo periodo
+        DDC_loopCounter++;
     }
 }
 
-function countStats() {
-    let averageDuration = 0;
-    let moodCount = Array(moods.length).fill(0);
+function DDC_countStats() {
+    let DDC_averageDuration = 0;
+    let DDC_moodCount = Array(DDC_moods.length).fill(0);
 
-    const tableRows = document.querySelectorAll('#planner-body tr');
-    tableRows.forEach(row => {
-        const cells = row.querySelectorAll('td');
-        const duration = parseInt(cells[3].innerText);
-        const moodIndex = moods.indexOf(cells[4].innerText);
+    const DDC_tableRows = document.querySelectorAll('#planner-body tr');
+    DDC_tableRows.forEach(DDC_row => {
+        const DDC_cells = DDC_row.querySelectorAll('td');
+        const DDC_duration = parseInt(DDC_cells[3].innerText);
+        const DDC_moodIndex = DDC_moods.indexOf(DDC_cells[4].innerText);
 
-        averageDuration += duration;
-        moodCount[moodIndex]++;
+        DDC_averageDuration += DDC_duration;
+        DDC_moodCount[DDC_moodIndex]++;
     });
-    const statsTable = document.getElementById('stats-body');
-    statsTable.innerHTML = ''; // Pulisci la tabella esistente
-    const averageRow = document.createElement('tr');
-    const averageCell = document.createElement('td');
-    const mood1Cell = document.createElement('td');
-    const mood2Cell = document.createElement('td');
-    const mood3Cell = document.createElement('td');
-    const mood4Cell = document.createElement('td');
-    const mood5Cell = document.createElement('td');
+    const DDC_statsTable = document.getElementById('stats-body');
+    DDC_statsTable.innerHTML = ''; // Pulisci la tabella esistente
+    const DDC_averageRow = document.createElement('tr');
+    const DDC_averageCell = document.createElement('td');
+    const DDC_mood1Cell = document.createElement('td');
+    const DDC_mood2Cell = document.createElement('td');
+    const DDC_mood3Cell = document.createElement('td');
+    const DDC_mood4Cell = document.createElement('td');
+    const DDC_mood5Cell = document.createElement('td');
 
-    averageCell.innerHTML = `${Math.round(averageDuration / tableRows.length)} min`;
-    mood1Cell.innerHTML = `${moodCount[0]} (${Math.round((moodCount[0] / tableRows.length) * 100)}%)`;
-    mood2Cell.innerHTML = `${moodCount[1]} (${Math.round((moodCount[1] / tableRows.length) * 100)}%)`;
-    mood3Cell.innerHTML = `${moodCount[2]} (${Math.round((moodCount[2] / tableRows.length) * 100)}%)`;
-    mood4Cell.innerHTML = `${moodCount[3]} (${Math.round((moodCount[3] / tableRows.length) * 100)}%)`;
-    mood5Cell.innerHTML = `${moodCount[4]} (${Math.round((moodCount[4] / tableRows.length) * 100)}%)`;
+    DDC_averageCell.innerHTML = `${Math.round(DDC_averageDuration / DDC_tableRows.length)} min`;
+    DDC_mood1Cell.innerHTML = `${DDC_moodCount[0]} (${Math.round((DDC_moodCount[0] / DDC_tableRows.length) * 100)}%)`;
+    DDC_mood2Cell.innerHTML = `${DDC_moodCount[1]} (${Math.round((DDC_moodCount[1] / DDC_tableRows.length) * 100)}%)`;
+    DDC_mood3Cell.innerHTML = `${DDC_moodCount[2]} (${Math.round((DDC_moodCount[2] / DDC_tableRows.length) * 100)}%)`;
+    DDC_mood4Cell.innerHTML = `${DDC_moodCount[3]} (${Math.round((DDC_moodCount[3] / DDC_tableRows.length) * 100)}%)`;
+    DDC_mood5Cell.innerHTML = `${DDC_moodCount[4]} (${Math.round((DDC_moodCount[4] / DDC_tableRows.length) * 100)}%)`;
 
-    averageRow.appendChild(averageCell);
-    statsTable.appendChild(averageRow);
-    averageRow.appendChild(mood1Cell);
-    averageRow.appendChild(mood2Cell);
-    averageRow.appendChild(mood3Cell);
-    averageRow.appendChild(mood4Cell);
-    averageRow.appendChild(mood5Cell);
+    DDC_averageRow.appendChild(DDC_averageCell);
+    DDC_statsTable.appendChild(DDC_averageRow);
+    DDC_averageRow.appendChild(DDC_mood1Cell);
+    DDC_averageRow.appendChild(DDC_mood2Cell);
+    DDC_averageRow.appendChild(DDC_mood3Cell);
+    DDC_averageRow.appendChild(DDC_mood4Cell);
+    DDC_averageRow.appendChild(DDC_mood5Cell);
 }
 
-function removeButtonSelectedId() {
-    const buttons = document.getElementsByClassName('period-button');
-    for (let i = 0; i < buttons.length; i++) {
-        buttons[i].classList.remove('selected');
+function DDC_removeButtonSelectedId() {
+    const DDC_buttons = document.getElementsByClassName('period-button');
+    for (let DDC_i = 0; DDC_i < DDC_buttons.length; i++) {
+        DDC_buttons[DDC_i].classList.remove('selected');
     }
 }
 
-function getPeriodStats(days) {
-    removeButtonSelectedId();
-    generateNextPeriodDaysMoods(days);
-    countStats();
+function DDC_getPeriodStats(days) {
+    DDC_removeButtonSelectedId();
+    DDC_generateNextPeriodDaysMoods(days);
+    DDC_countStats();
     document.getElementById(`btn-${days}`).classList.add('selected');
 }

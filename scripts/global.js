@@ -1,9 +1,10 @@
-let moods = ['Nostalgia', 'Calma', 'Libertà', 'Solitudine'];
+let moods = ['Nostalgia', 'Calma', 'Libertà', 'Solitudine', 'Focus'];
 let gradients = [
     'linear-gradient(to right, #ffd89b, #19547b)',
     'linear-gradient(to right, #C9D6FF, #E2E2E2)',
     'linear-gradient(to right, #ff7e5f, #feb47b)',
-    'linear-gradient(to right, #616161, #9bc5c3)'
+    'linear-gradient(to right, #616161, #9bc5c3)',
+    'linear-gradient(to right, #1A2A40, #3A5F8A)'
 ]
 
 const INTERVAL_MOON = 7 * 24 * 60 * 60 * 1000; // 7 giorni
@@ -36,8 +37,8 @@ function generateMood(dateInput = Date.now()) {
     // Dividiamo poi per 2^32 (4294967296).
     const randomValue = (hash >>> 0) / 4294967296;
   
-    // Mappiamo il valore [0, 1) all'intervallo intero desiderato [1, 4].
-    const resultD = Math.floor(randomValue * 4) + 1;
+    // Mappiamo il valore [0, 1) all'intervallo intero desiderato [1, 5].
+    const resultD = Math.floor(randomValue * 5) + 1;
   
     return resultD;
 }

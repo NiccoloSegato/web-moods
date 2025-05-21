@@ -88,12 +88,14 @@ function countStats() {
     const mood2Cell = document.createElement('td');
     const mood3Cell = document.createElement('td');
     const mood4Cell = document.createElement('td');
+    const mood5Cell = document.createElement('td');
 
     averageCell.innerHTML = `${Math.round(averageDuration / tableRows.length)} min`;
     mood1Cell.innerHTML = `${moodCount[0]} (${Math.round((moodCount[0] / tableRows.length) * 100)}%)`;
     mood2Cell.innerHTML = `${moodCount[1]} (${Math.round((moodCount[1] / tableRows.length) * 100)}%)`;
     mood3Cell.innerHTML = `${moodCount[2]} (${Math.round((moodCount[2] / tableRows.length) * 100)}%)`;
     mood4Cell.innerHTML = `${moodCount[3]} (${Math.round((moodCount[3] / tableRows.length) * 100)}%)`;
+    mood5Cell.innerHTML = `${moodCount[4]} (${Math.round((moodCount[4] / tableRows.length) * 100)}%)`;
 
     averageRow.appendChild(averageCell);
     statsTable.appendChild(averageRow);
@@ -101,6 +103,7 @@ function countStats() {
     averageRow.appendChild(mood2Cell);
     averageRow.appendChild(mood3Cell);
     averageRow.appendChild(mood4Cell);
+    averageRow.appendChild(mood5Cell);
 }
 
 function removeButtonSelectedId() {

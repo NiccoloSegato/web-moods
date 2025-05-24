@@ -1,4 +1,4 @@
-let DDC_moods = ['Malinconia', 'Calma', 'Libertà', 'Solitudine', 'Focus'];
+let DDC_moods = ['Malinconia', 'Calma', 'Felicità', 'Solitudine', 'Trance'];
 let DDC_gradients = [
     'linear-gradient(to right, #ffd89b, #19547b)',
     'linear-gradient(to right, #C9D6FF, #E2E2E2)',
@@ -59,6 +59,7 @@ const DDC_dictionary = [
     ],
     [
         "Sento dei suoni che non riesco a capire, un po’ ovattati, che non si riescono a distinguere perché c’è un filtro che rende tutto incomprensibile. Se sono delle voci, sento che non si riescono a riconoscere le parole.",
+        "non è sempre tutto positivo o negativo, no?",
         "Potrei anche essere circondato da un sacco di cose, eppure manca la comprensione di ciò che mi sta intorno e, quindi, mi sento solo. Mi sento anche perso, perché mi sembra di non avere gli strumenti per affrontare nulla.",
         "Ci sono tante declinazioni di questo sentire, però secondo me non è neanche necessario dirle, perché è un sentimento molto riconoscibile.",
         "Lo associo un po’ alla sensazione di pericolo, ma senza un motivo specifico. È la sensazione di confusione a farmi sentire in pericolo, perché penso che potrebbe succedermi qualsiasi cosa e che non riuscirei ad affrontare ciò che avrò di fronte.",
@@ -68,7 +69,6 @@ const DDC_dictionary = [
         "Poi, vedo tanto grigio.",
         "Quando prendi un aereo, anche se parti da una città dov’è nuvoloso, poco dopo superate le nuvole, il cielo ritorna azzurro. Il cielo è grigio perché ci sono le nuvole che ti impediscono di vedere cosa c’è oltre, ma non è che il cielo sia grigio davvero.",
         "C’è ancora qualcosa di interno od esterno che si intromette. Solitamente, ciò che ti impedisce di vedere al di là è un insieme di queste due cose e, alla fine, ti senti bloccato.",
-        "-",
         "-"
     ],
     [

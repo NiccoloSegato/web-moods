@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scroll Animation</title>
+  <style>
+    body {
+      margin: 0;
+      height: 10000px; /* scroll lungo per demo */
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+  </style>
+  <link rel="stylesheet" href="styles/scrolleffect.css">
+  <script src="scripts/jquery.js"></script>
+  <script src="scripts/ripples.js"></script>
+</head>
+<body>
+
+<canvas id="sequence-canvas"></canvas>
+<div class="bg-image"></div>
+
+<script>
+  const frameCount = 120;
+  const canvas = document.getElementById("sequence-canvas");
+  const context = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const currentFrame = index => `./assets/frames/nuvole_${String(index)}.webp`;
+
+  const imageCache = {};
+  let currentLoadedIndex = -1;
+
+  function render(index) {
+    if (index === currentLoadedIndex) return;
+    currentLoadedIndex = index;
+
+    if (imageCache[index]) {
+      drawImage(imageCache[index]);
+    } else {
+      const img = new Image();
+      img.src = currentFrame(index);
+      img.onload = () => {
+        imageCache[index] = img;
+        drawImage(img);
+      };
+    }
+
+    // Precarica 2 frame successivi
+    for (let offset = 1; offset <= 2; offset++) {
+      const preloadIndex = index + offset;
+      if (preloadIndex < frameCount && !imageCache[preloadIndex]) {
+        const preloadImg = new Image();
+        preloadImg.src = currentFrame(preloadIndex);
+        preloadImg.onload = () => {
+          imageCache[preloadIndex] = preloadImg;
+        };
+      }
+    }
+  }
+
+  function drawImage(img) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+    const x = (canvas.width - img.width * scale) / 2;
+    const y = (canvas.height - img.height * scale) / 2;
+    context.drawImage(img, 0, 0, img.width, img.height, x, y, img.width * scale, img.height * scale);
+  }
+
+  // Scroll listener
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollFraction = scrollTop / maxScrollTop;
+    const frameIndex = Math.min(frameCount - 1, Math.floor(scrollFraction * frameCount));
+    requestAnimationFrame(() => render(frameIndex));
+  });
+
+  // Resize listener
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    render(currentLoadedIndex);
+  });
+
+  $(document).ready(function() {
+      $(".bg-image").ripples({
+        resolution: 336,
+        perturbance: 0.05
+      });
+    });
+
+
+  // Mostra il primo frame
+  render(0);
+</script>
+
+
+</body>
+</html>

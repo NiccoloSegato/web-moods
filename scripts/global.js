@@ -1,4 +1,4 @@
-let DDC_moods = ['Nostalgia', 'Calma', 'Libertà', 'Solitudine', 'Focus'];
+let DDC_moods = ['Malinconia', 'Calma', 'Libertà', 'Solitudine', 'Focus'];
 let DDC_gradients = [
     'linear-gradient(to right, #ffd89b, #19547b)',
     'linear-gradient(to right, #C9D6FF, #E2E2E2)',
@@ -7,6 +7,85 @@ let DDC_gradients = [
     'linear-gradient(to right, #1A2A40, #3A5F8A)'
 ]
 
+const DDC_gradientsTints = [
+    ['#FD5E53', '#F6824F', '#ED964B', '#E4AA47', '#3A5F8A', '#1A2A40', '#040348', '#191970'],
+    ['#a0bce0', '#379ab8', '#a3d6bc', '#2d7e70', '#84ecba', '#5be78e', '#b2daeb', '#7de3ec'],
+    ['#d3e9b4', '#a6d1ec', '#ffc3d4', '#d5badf', '#bed899', '#e28bf2', '#fff491', '#ff829b'],
+    ['#1A1A1A', '#2F2F2F', '#434343', '#3A5E6B', '#5A5A5A', '#707070', '#858585', '#929292'],
+    ['#F5A7BE', '#E37EA1', '#D15886', '#BE326B', '#A22D77', '#852882', '#66207E', '#461D79']
+];
+const DDC_dictionary = [
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "Immagino di respirare a pieni polmoni, di sentire l'aria che entra, proprio un'armonia totale tra me e il mondo esterno, tra quello che provo dentro e quello che c’è fuori.",
+        "È come se l'ambiente esterno e il mio stato d'animo fossero in sintonia.",
+        "Quando sono calmo, mi immagino di essere proprio lì nel presente, senza farmi distrarre dai pensieri che vanno avanti e indietro.",
+        "È L'altalena  a trasmettermi questa sensazione, perché è semplicemente lì presente ed è fatta per godersi quell'istante e quel piccolo pezzo di mondo con spensieratezza.",
+        "Se la felicità è un'energia pazzesca, la calma è meno intensa. Ad esempio, l’acqua che bolle è un casino, finché non abbassi il gas. La calma è un po' così: un grande mare piatto, intatto.",
+        "Mi viene in mente un giardino super ordinato, tipo quelli zen. Se c'è vita, come dei fiori o degli animali, rimane comunque una presenza silenziosa, che non rompe l'armonia.",
+        "Una cosa interessante è che non te ne accorgi mentre la stai vivendo. In quel momento, sei totalmente immerso in ciò che stai facendo, che non noti la tranquillità della situazione, anche se, inconsciamente, la percepisci.",
+        "Quando sono concentrato a leggere , avverto una profonda pace, come se la lettura creasse una barriera contro il frastuono dei miei pensieri.",
+        "Se leggessi in mezzo alla natura, non sentirei di avere fretta o di dover scappare; il tempo, praticamente, sparisce.",
+        "Il riuscire a stare a un livello basso di energia insieme a qualcun altro è più raro, ma è anche molto bello.",
+        "In quel momento poi, a volte, scatta anche un po’ di felicità. Se si crea quell'equilibrio tranquillo con un'altra persona, spesso ti fa anche sentire felice.",
+        "Non so come dire... sono i momenti in cui sei con qualcuno e riuscite a stare insieme in maniera tranquilla ed armonica che, di solito, ti toccano anche un po' il cuore."
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "Sento dei suoni che non riesco a capire, un po’ ovattati, che non si riescono a distinguere perché c’è un filtro che rende tutto incomprensibile. Se sono delle voci, sento che non si riescono a riconoscere le parole.",
+        "Potrei anche essere circondato da un sacco di cose, eppure manca la comprensione di ciò che mi sta intorno e, quindi, mi sento solo. Mi sento anche perso, perché mi sembra di non avere gli strumenti per affrontare nulla.",
+        "Ci sono tante declinazioni di questo sentire, però secondo me non è neanche necessario dirle, perché è un sentimento molto riconoscibile.",
+        "Lo associo un po’ alla sensazione di pericolo, ma senza un motivo specifico. È la sensazione di confusione a farmi sentire in pericolo, perché penso che potrebbe succedermi qualsiasi cosa e che non riuscirei ad affrontare ciò che avrò di fronte.",
+        "Non c’è armonia né tra te e la situazione, né tra te e il mondo, o tra le persone. Quando sei isolato, l’energia non arriva dove deve arrivare perché si interrompono i canali attraverso cui può scorrere… sono strozzati da un qualcosa di inquinato che fa morire la natura della vita.",
+        "Così, non sai più da dove passare, sei bloccato in un traffico dove vedi macchine arrivare da qualsiasi parte e ti dici: “non so più dove andare, niente dipende più da me”.",
+        "Rimani completamente in balia  degli eventi e delle persone, non hai il controllo su nulla… in più, se hai tanti “nodi” dentro di te, è molto più facile che qualsiasi tipo di situazione ti possa provocare questa sensazione.",
+        "Poi, vedo tanto grigio.",
+        "Quando prendi un aereo, anche se parti da una città dov’è nuvoloso, poco dopo superate le nuvole, il cielo ritorna azzurro. Il cielo è grigio perché ci sono le nuvole che ti impediscono di vedere cosa c’è oltre, ma non è che il cielo sia grigio davvero.",
+        "C’è ancora qualcosa di interno od esterno che si intromette. Solitamente, ciò che ti impedisce di vedere al di là è un insieme di queste due cose e, alla fine, ti senti bloccato.",
+        "-",
+        "-"
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ]
+];
 const DDC_INTERVAL_MOON = 7 * 24 * 60 * 60 * 1000; // 7 giorni
 const DDC_INTERVAL_TIDE = 6 * 60 * 60 * 1000; // 6 ore
 const DDC_INTERVAL_EARTH = 20 * 60 * 1000; // 20 minuti

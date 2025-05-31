@@ -14,6 +14,38 @@ const DDC_gradientsTints = [
     ['#1A1A1A', '#2F2F2F', '#434343', '#3A5E6B', '#5A5A5A', '#707070', '#858585', '#929292'],
     ['#F5A7BE', '#E37EA1', '#D15886', '#BE326B', '#A22D77', '#852882', '#66207E', '#461D79']
 ];
+const DDC_titleDictionary = [
+    [
+        "NON TUTTO DURA PER SEMPRE",
+        "SOLO UMANI CHE RESPIRANO",
+        "IL TAGLIO DI UN FILO",
+        "MA QUANTO SONO FELICI?"
+    ],
+    [
+        "QUI, ADESSO",
+        "VITALITÀ DISCRETA",
+        "TRANQUILLA ASSENZA",
+        "FREQUENZA MINIMA"
+    ],
+    [
+        "TUTTO A FUOCO",
+        "QUANDO BASTANO I NUTRIMENTI DELLA VITA",
+        "È VITA, È PERSONE",
+        "MA QUANTO SONO FELICI?"
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "FUORI FUOCO",
+        "È ENERGIA DIFFUSA",
+        "ECCITAMENTO MECCANICO",
+        "ENERGIA PURA"
+    ]
+];
 const DDC_dictionary = [
     [
         "-",

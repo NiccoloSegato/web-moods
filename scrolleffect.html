@@ -28,68 +28,105 @@
 <div class="bg-image"></div>
 
 <script>
-  const frameCount = 120;
-  const canvas = document.getElementById("sequence-canvas");
-  const context = canvas.getContext("2d");
+  const DDC_A_frameCount = 12;
+  const DDC_A_canvas = document.getElementById("sequence-canvas");
+  const DDC_A_context = DDC_A_canvas.getContext("2d");
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  DDC_A_canvas.width = window.innerWidth;
+  DDC_A_canvas.height = window.innerHeight;
 
-  const currentFrame = index => `./assets/frames/nuvole_${String(index)}.webp`;
+  const DDC_A_frames = [
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fe8e2fbef529898c074_nuvole_87.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fe921697d6707515486_nuvole_88.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fe9b831b5e149417e5b_nuvole_89.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fe9aec33f3e8528d411_nuvole_90.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fe92f1d1d314ecabfce_nuvole_91.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fe9111dd84f11043868_nuvole_92.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fe9385673a9e5df4730_nuvole_93.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fe98478caf554813130_nuvole_94.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fe9111dd84f110438a0_nuvole_95.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fea9188f66f1245443b_nuvole_96.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364feb92f54757025331c4_nuvole_97.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fea03cb314e3886cb55_nuvole_98.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fead0b8f5b1baf88473_nuvole_99.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364feab9208fc185f9f42f_nuvole_100.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364feb6cc9478e0b4206d9_nuvole_101.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fea21e29ff834aa6780_nuvole_102.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364feaf132ac611a045ab3_nuvole_103.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fea21697d6707515559_nuvole_104.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364febe2fbef529898c1d3_nuvole_105.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364feb21e29ff834aa68aa_nuvole_106.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364feba6cb8257a9441b1f_nuvole_107.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364feb39c170b034cc176d_nuvole_108.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364feb9a26ce760213d7e6_nuvole_109.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364feb03cb314e3886cbec_nuvole_110.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364febd0b8f5b1baf88520_nuvole_111.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fecce6616ed4b35acd9_nuvole_112.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fec748106fac9b8db2c_nuvole_113.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fec21697d6707515673_nuvole_114.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fec0d12b3de9be3998d_nuvole_115.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fec37130b0d56ac27bd_nuvole_116.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fecec3af980b2714855_nuvole_117.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364feccd9831582122fa6a_nuvole_118.webp',
+    'https://cdn.prod.website-files.com/681b30be07d7850c444db636/68364fec8cd7af629c91ba7c_nuvole_119.webp',
+    ''
+  ];
 
-  const imageCache = {};
-  let currentLoadedIndex = -1;
+  const DDC_A_currentFrame = DDC_A_i => DDC_A_frames[DDC_A_i];
 
-  function render(index) {
-    if (index === currentLoadedIndex) return;
-    currentLoadedIndex = index;
+  const DDC_A_imageCache = {};
+  let DDC_A_currentLoadedIndex = -1;
 
-    if (imageCache[index]) {
-      drawImage(imageCache[index]);
+  function DDC_A_render(DDC_A_i) {
+    if (DDC_A_i === DDC_A_currentLoadedIndex) return;
+    DDC_A_currentLoadedIndex = DDC_A_i;
+
+    if (DDC_A_imageCache[DDC_A_i]) {
+      DDC_A_drawImage(DDC_A_imageCache[DDC_A_i]);
     } else {
-      const img = new Image();
-      img.src = currentFrame(index);
-      img.onload = () => {
-        imageCache[index] = img;
-        drawImage(img);
+      const DDC_A_img = new Image();
+      DDC_A_img.src = DDC_A_currentFrame(DDC_A_i);
+      DDC_A_img.onload = () => {
+        DDC_A_imageCache[DDC_A_i] = DDC_A_img;
+        DDC_A_drawImage(DDC_A_img);
       };
     }
 
     // Precarica 2 frame successivi
-    for (let offset = 1; offset <= 2; offset++) {
-      const preloadIndex = index + offset;
-      if (preloadIndex < frameCount && !imageCache[preloadIndex]) {
-        const preloadImg = new Image();
-        preloadImg.src = currentFrame(preloadIndex);
-        preloadImg.onload = () => {
-          imageCache[preloadIndex] = preloadImg;
+    for (let DDC_A_offset = 1; DDC_A_offset <= 2; DDC_A_offset++) {
+      const DDC_A_preloadIndex = DDC_A_i + DDC_A_offset;
+      if (DDC_A_preloadIndex < DDC_A_frameCount && !DDC_A_imageCache[DDC_A_preloadIndex]) {
+        const DDC_A_preloadImg = new Image();
+        DDC_A_preloadImg.src = DDC_A_currentFrame(DDC_A_preloadIndex);
+        DDC_A_preloadImg.onload = () => {
+          DDC_A_imageCache[DDC_A_preloadIndex] = DDC_A_preloadImg;
         };
       }
     }
   }
 
-  function drawImage(img) {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
-    const x = (canvas.width - img.width * scale) / 2;
-    const y = (canvas.height - img.height * scale) / 2;
-    context.drawImage(img, 0, 0, img.width, img.height, x, y, img.width * scale, img.height * scale);
+  function DDC_A_drawImage(DDC_A_img) {
+    DDC_A_context.clearRect(0, 0, DDC_A_canvas.width, DDC_A_canvas.height);
+    const DDC_A_scale = Math.min(DDC_A_canvas.width / DDC_A_img.width, DDC_A_canvas.height / DDC_A_img.height);
+    const DDC_A_x = (DDC_A_canvas.width - DDC_A_img.width * DDC_A_scale) / 2;
+    const DDC_A_y = (DDC_A_canvas.height - DDC_A_img.height * DDC_A_scale) / 2;
+    DDC_A_context.drawImage(DDC_A_img, 0, 0, DDC_A_img.width, DDC_A_img.height, DDC_A_x, DDC_A_y, DDC_A_img.width * DDC_A_scale, DDC_A_img.height * DDC_A_scale);
   }
 
   // Scroll listener
   window.addEventListener('scroll', () => {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollFraction = scrollTop / maxScrollTop;
-    const frameIndex = Math.min(frameCount - 1, Math.floor(scrollFraction * frameCount));
-    requestAnimationFrame(() => render(frameIndex));
+    const DDC_A_scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const DDC_A_maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
+    const DDC_A_scrollFraction = DDC_A_scrollTop / DDC_A_maxScrollTop;
+    const DDC_A_frameIndex = Math.min(DDC_A_frameCount - 1, Math.floor(DDC_A_scrollFraction * DDC_A_frameCount));
+    requestAnimationFrame(() => DDC_A_render(DDC_A_frameIndex));
   });
 
   // Resize listener
   window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    render(currentLoadedIndex);
+    DDC_A_canvas.width = window.innerWidth;
+    DDC_A_canvas.height = window.innerHeight;
+    DDC_A_render(DDC_A_currentLoadedIndex);
   });
 
   $(document).ready(function() {
@@ -101,7 +138,7 @@
 
 
   // Mostra il primo frame
-  render(0);
+  DDC_A_render(0);
 </script>
 
 
